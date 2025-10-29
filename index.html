@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeMind</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Welkom scherm -->
+  <div id="welcome-screen">
+    <h1>SafeMind</h1>
+    <p>Welkom! Klik op de knop om te starten.</p>
+    <button id="startBtn">Welkom</button>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" style="display:none;">
+    <header>
+      <h1>SafeMind Dashboard</h1>
+    </header>
+
+    <main>
+      <section id="mood-input">
+        <h2>Hoe voel je je vandaag?</h2>
+        <div id="mood-buttons">
+          <button data-mood="😊">😊</button>
+          <button data-mood="😐">😐</button>
+          <button data-mood="😔">😔</button>
+        </div>
+        <textarea id="note" placeholder="Schrijf een notitie over je dag"></textarea>
+        <button id="saveMood">Opslaan</button>
+      </section>
+
+      <section id="overview">
+        <h2>Overzicht</h2>
+        <div id="graph"></div>
+        <canvas id="weeklyChart" width="400" height="200"></canvas>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

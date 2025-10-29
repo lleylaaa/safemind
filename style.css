@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+#mood-buttons button {
+    font-size: 2rem;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+button#saveMood, #startBtn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#welcome-screen {
+    max-width: 400px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#graph p {
+    background-color: #e0f0f0;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+#graph p:hover {
+    background-color : #c0e0e0
+}
+#notes-list p {
+    background-color: #fff0e0;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+#notes-list p:hover {
+    background-color : #ffd0b0
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f2f2f2;
+    color: #888;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+footer a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 600px) {
+    #mood-buttons button {
+        font-size: 1.5rem;
+        padding: 8px;
+        margin: 3px;
+    }
+}
+@media (max-width: 400px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 400px) {
+    #welcome-screen {
+        margin: 20px;
+    }
+}
+@media (max-width: 400px) {
+    button#saveMood, #startBtn {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark)
+{
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    header {
+        background-color: #1e1e1e;
+    }
+    #graph p {
+        background-color: #2a2a2a;
+    }
+    #graph p:hover {
+        background-color: #3a3a3a;
+    }
+    #notes-list p {
+        background-color: #2a1a0d;
+    }
+    #notes-list p:hover {
+        background-color: #4a2a1d;
+    }
+    footer {
+        background-color: #1e1e1e;
+        color: #888;
+    }
+    footer a {
+        color: #81C784;
+    }
+    footer a:hover {
+        text-decoration: underline;
+    }
+}
