@@ -12,11 +12,18 @@ header {
     padding: 20px;
 }
 
+nav#menu button {
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
 main {
     padding: 20px;
 }
 
-#mood-buttons button {
+#mood-buttons button,
+#sleep-buttons button {
     font-size: 2rem;
     padding: 10px;
     margin: 5px;
@@ -31,7 +38,9 @@ textarea {
     font-size: 1rem;
 }
 
-button#saveMood, #startBtn {
+button#saveMood,
+button#saveSleep,
+#startBtn {
     margin-top: 10px;
     padding: 10px 20px;
     font-size: 1rem;
@@ -62,6 +71,7 @@ button#saveMood, #startBtn {
 #notes-list p:hover {
     background-color : #ffd0b0
 }
+
 footer {
     text-align: center;
     padding: 10px;
@@ -71,32 +81,24 @@ footer {
     width: 100%;
     bottom: 0;
 }
-footer a {
-    color: #4CAF50;
-    text-decoration: none;
-}
-footer a:hover {
-    text-decoration: underline;
-}
+
 @media (max-width: 600px) {
-    #mood-buttons button {
+    #mood-buttons button,
+    #sleep-buttons button {
         font-size: 1.5rem;
         padding: 8px;
         margin: 3px;
     }
 }
+
 @media (max-width: 400px) {
     header h1 {
         font-size: 1.5rem;
     }
-}
-@media (max-width: 400px) {
     #welcome-screen {
         margin: 20px;
     }
-}
-@media (max-width: 400px) {
-    button#saveMood, #startBtn {
+    button#saveMood, #startBtn, button#saveSleep {
         width: 100%;
         box-sizing: border-box;
     }
@@ -105,33 +107,11 @@ footer a:hover {
 /* Dark mode styles */
 @media (prefers-color-scheme: dark)
 {
-    body {
-        background-color: #121212;
-        color: #e0e0e0;
-    }
-    header {
-        background-color: #1e1e1e;
-    }
-    #graph p {
-        background-color: #2a2a2a;
-    }
-    #graph p:hover {
-        background-color: #3a3a3a;
-    }
-    #notes-list p {
-        background-color: #2a1a0d;
-    }
-    #notes-list p:hover {
-        background-color: #4a2a1d;
-    }
-    footer {
-        background-color: #1e1e1e;
-        color: #888;
-    }
-    footer a {
-        color: #81C784;
-    }
-    footer a:hover {
-        text-decoration: underline;
-    }
+    body { background-color: #121212; color: #e0e0e0; }
+    header { background-color: #1e1e1e; }
+    #graph p { background-color: #2a2a2a; }
+    #graph p:hover { background-color: #3a3a3a; }
+    #notes-list p { background-color: #2a1a0d; }
+    #notes-list p:hover { background-color: #4a2a1d; }
+    footer { background-color: #1e1e1e; color: #888; }
 }

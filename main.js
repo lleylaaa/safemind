@@ -2,21 +2,31 @@
 const welcomeScreen = document.getElementById('welcome-screen');
 const startBtn = document.getElementById('startBtn');
 const dashboard = document.getElementById('dashboard');
+const screens = document.querySelectorAll('.screen');
+const menuButtons = document.querySelectorAll('#menu button');
 
 startBtn.addEventListener('click', () => {
     welcomeScreen.style.display = 'none';
     dashboard.style.display = 'block';
+    showScreen('mood-screen');
 });
+
+// Menu navigatie
+menuButtons.forEach(btn => {
+    btn.addEventListener('click', () => showScreen(btn.dataset.screen));
+});
+
+function showScreen(screenId){
+    screens.forEach(s => s.style.display = 'none');
+    document.getElementById(screenId).style.display = 'block';
+}
 
 // Mood buttons en opslaan
 const moodButtons = document.querySelectorAll('#mood-buttons button');
 const saveBtn = document.getElementById('saveMood');
 const noteInput = document.getElementById('note');
-const graph = document.getElementById('graph');
-const weeklyChartCtx = document.getElementById('weeklyChart').getContext('2d');
-let weeklyChart;
-
 let selectedMood = '';
+
 moodButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         selectedMood = btn.dataset.mood;
@@ -25,41 +35,69 @@ moodButtons.forEach(btn => {
     });
 });
 
-// Opslaan in localStorage
+// Opslaan mood
 saveBtn.addEventListener('click', () => {
-    if(!selectedMood){
-        alert('Kies eerst een mood!');
-        return;
-    }
-
+    if(!selectedMood){ alert('Kies eerst een mood!'); return; }
     const entry = {
         mood: selectedMood,
         note: noteInput.value,
+        sleep: null,
         date: new Date().toISOString()
     };
-
-    let entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
-    entries.push(entry);
-    localStorage.setItem('moodEntries', JSON.stringify(entries));
-
+    saveEntry(entry);
     noteInput.value = '';
     selectedMood = '';
     moodButtons.forEach(b => b.style.border = '');
+    alert('Mood opgeslagen! Ga nu naar Slaap scherm.');
+});
+
+// Sleep buttons en opslaan
+const sleepButtons = document.querySelectorAll('#sleep-buttons button');
+const saveSleepBtn = document.getElementById('saveSleep');
+let selectedSleep = '';
+
+sleepButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        selectedSleep = btn.dataset.sleep;
+        sleepButtons.forEach(b => b.style.border = '');
+        btn.style.border = '2px solid #333';
+    });
+});
+
+saveSleepBtn.addEventListener('click', () => {
+    if(!selectedSleep){ alert('Kies eerst je slaap!'); return; }
+    const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+    const lastEntry = entries[entries.length -1];
+    if(lastEntry) lastEntry.sleep = selectedSleep;
+    localStorage.setItem('moodEntries', JSON.stringify(entries));
+    selectedSleep = '';
+    sleepButtons.forEach(b => b.style.border = '');
+    alert('Slaap opgeslagen!');
     loadMoods();
 });
 
+// Opslaan functie
+function saveEntry(entry){
+    const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+    entries.push(entry);
+    localStorage.setItem('moodEntries', JSON.stringify(entries));
+}
+
 // Laden van moods en grafiek
+const graph = document.getElementById('graph');
+const weeklyChartCtx = document.getElementById('weeklyChart').getContext('2d');
+let weeklyChart;
+
 function loadMoods(){
     graph.innerHTML = '';
     if(weeklyChart) weeklyChart.destroy();
-
-    let entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+    const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
 
     // Overzicht
     entries.forEach(e => {
         const p = document.createElement('p');
         const d = new Date(e.date);
-        p.textContent = `${d.toLocaleDateString()} - ${e.mood} - ${e.note}`;
+        p.textContent = `${d.toLocaleDateString()} - Mood: ${e.mood || '-'} - Slaap: ${e.sleep || '-'} - Notitie: ${e.note || ''}`;
         graph.appendChild(p);
     });
 
@@ -80,20 +118,8 @@ function loadMoods(){
 
     weeklyChart = new Chart(weeklyChartCtx, {
         type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                label: 'Gemiddelde mood per week',
-                data,
-                borderColor: '#4CAF50',
-                fill: false
-            }]
-        },
-        options: {
-            scales: {
-                y: { min: 1, max: 3, ticks: { stepSize: 1 } }
-            }
-        }
+        data: { labels, datasets: [{ label: 'Gemiddelde mood per week', data, borderColor: '#4CAF50', fill: false }] },
+        options: { scales: { y: { min:1, max:3, ticks:{ stepSize:1 } } } }
     });
 }
 

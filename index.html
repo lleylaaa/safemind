@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="icon-192.png" type="image/png">
 </head>
 <body>
   <!-- Welkom scherm -->
@@ -20,10 +21,16 @@
   <div id="dashboard" style="display:none;">
     <header>
       <h1>SafeMind Dashboard</h1>
+      <nav id="menu">
+        <button data-screen="mood-screen">Mood</button>
+        <button data-screen="sleep-screen">Slaap</button>
+        <button data-screen="overview-screen">Overzicht</button>
+      </nav>
     </header>
 
     <main>
-      <section id="mood-input">
+      <!-- Mood scherm -->
+      <section id="mood-screen" class="screen">
         <h2>Hoe voel je je vandaag?</h2>
         <div id="mood-buttons">
           <button data-mood="😊">😊</button>
@@ -34,8 +41,20 @@
         <button id="saveMood">Opslaan</button>
       </section>
 
-      <section id="overview">
-        <h2>Overzicht</h2>
+      <!-- Sleep scherm -->
+      <section id="sleep-screen" class="screen" style="display:none;">
+        <h2>Hoe heb je geslapen?</h2>
+        <div id="sleep-buttons">
+          <button data-sleep="😴">😴 Goed</button>
+          <button data-sleep="😐">😐 Gemiddeld</button>
+          <button data-sleep="😵‍💫">😵‍💫 Slecht</button>
+        </div>
+        <button id="saveSleep">Opslaan</button>
+      </section>
+
+      <!-- Overzicht scherm -->
+      <section id="overview-screen" class="screen" style="display:none;">
+        <h2>Overzicht van moods en slaap</h2>
         <div id="graph"></div>
         <canvas id="weeklyChart" width="400" height="200"></canvas>
       </section>
